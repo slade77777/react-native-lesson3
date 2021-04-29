@@ -8,76 +8,89 @@
  * @format
  */
 
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
-    Alert,
-    SafeAreaView,
-    ScrollView,
-    StatusBar,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    useColorScheme,
-    View,
+  Alert,
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  useColorScheme,
+  View,
 } from 'react-native';
-import CustomInput from "./src/CustomInput";
-import CustomButton from "./src/CustomButton";
+import CustomInput from './src/CustomInput';
 
 export const orangeColor = '#E7421B';
 
 const App = () => {
-    const InputList = [
-        {
-            title: 'Name',
-            placeholder: 'John Doe',
-        },
-        {
-            title: 'Mail',
-            placeholder: 'adb@gmail.com',
-            isEmail: true
-        },
-        {
-            title: 'Password',
-            placeholder: '*****'
-        },
-        {
-            title: 'RetypePassword',
-            placeholder: '*****'
-        }
-    ];
+  const [day, setDay] = useState(0);
+  const [hour, setHour] = useState(0);
+  const [minute, setMinute] = useState(0);
+  const [second, setSecond] = useState(0);
 
-    const signUp = (label: string) => {
-        Alert.alert(label)
+
+  useEffect(() => {
+    if (second > 60) {
+      setMinute(minute + 1);
+      setSecond(second - 60);
     }
+  }, [second]);
 
-    const login = (label: string) => {
-        Alert.alert(label)
+  useEffect(() => {
+    if (minute > 60) {
+      setHour(hour + 1);
+      setMinute(minute - 60);
     }
+  }, [minute]);
 
-    return (
-        <SafeAreaView style={{backgroundColor: 'white'}}>
-            <View style={{marginTop: 50}}>
-                <Text
-                    style={{
-                        textAlign: 'center',
-                        color: orangeColor,
-                        fontSize: 22,
-                        fontWeight: 'bold',
-                    }}>
-                    Join Active Ecommerce
-                </Text>
-                <View style={{ margin: 20}}>
-                    {
-                        InputList.map((input, index) => (
-                            <CustomInput key={index} label={input.title} placeholder={input.placeholder} isEmail={input.isEmail}/>
-                        ))
-                    }
-                    <CustomButton label={'SignUp'} colorCode={orangeColor} onPress={(val: string) => signUp(val)}/>
-                    <CustomButton label={'Login'} colorCode={'#F8B55D'} onPress={(val: string) => login(val)}/>
-                </View>
-            </View>
-        </SafeAreaView>
-    );
+  useEffect(() => {
+    if (hour > 24) {
+      setDay(day + 1);
+      setHour(hour - 24);
+    }
+  }, [hour]);
+
+  return (
+    <SafeAreaView style={{backgroundColor: 'white'}}>
+      <View style={{marginTop: 50}}>
+        <CustomInput
+          onChangeText={(val: string) => setDay(+val)}
+          val={day}
+          label={'day'}
+          placeholder={'day'}
+        />
+        <CustomInput
+          onChangeText={(val: string) => {
+            const hourInput = +val;
+            setHour(hourInput);
+          }}
+          label={'hour'}
+          val={hour}
+          placeholder={'hour'}
+        />
+        <CustomInput
+          onChangeText={(val: string) => {
+            const minuteInput = +val;
+            setMinute(minuteInput);
+          }}
+          label={'minute'}
+          val={minute}
+          placeholder={'minute'}
+        />
+        <CustomInput
+          onChangeText={(val: string) => {
+            const secondInput = +val;
+            setSecond(secondInput);
+          }}
+          val={second}
+          label={'second'}
+          placeholder={'second'}
+        />
+      </View>
+    </SafeAreaView>
+  );
 };
 
 const styles = StyleSheet.create({});
