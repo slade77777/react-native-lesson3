@@ -36,8 +36,8 @@ const AppNavigation: React.FC = () => {
             <Stack.Screen name="Login" component={Login} />
           ) : (
             <>
-              <Stack.Screen name="Survey" component={Survey} />
               <Stack.Screen name="Home" component={Home} />
+              <Stack.Screen name="Survey" component={Survey} />
               <Stack.Screen name="Survey2" component={Survey2} />
               <Stack.Screen name="Answers" component={Answers} />
             </>
