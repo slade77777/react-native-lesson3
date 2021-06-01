@@ -1,38 +1,49 @@
-import React, {useContext, useEffect, useState} from "react";
-import {Text, View, ActivityIndicator} from "react-native";
-import {useNavigation} from '@react-navigation/native'
-import CustomButton from "../CustomButton";
-import {baseUrl} from "../constant";
+import React, {useContext, useEffect, useState} from 'react';
+import {
+  Text,
+  View,
+  ActivityIndicator,
+  TouchableOpacity,
+  Alert,
+  Image,
+  FlatList,
+} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+import CustomButton from '../CustomButton';
+import {baseUrl} from '../constant';
+import {useDispatch, useSelector} from 'react-redux';
+import {getProducts} from '../redux/action/productionAction';
+
 const axios = require('axios').default;
 
 const Home: React.FC = () => {
-    const navigation = useNavigation();
-    const [user, setUser] = useState({});
-    const [loading, setLoading] = useState(false);
+  const productReducer = useSelector((state: any) => state?.productReducer);
+  const {products, isLoading} = productReducer;
+  console.log(isLoading);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getProducts());
+  }, []);
 
-    useEffect(() => {
-        setLoading(true);
-        const url = `${baseUrl}user/1`;
-        axios.get(url).then(res => {
-            setUser(res.data);
-            setLoading(false);
-        }).catch((error) => {
-            setLoading(false);
-            console.log(error);
-        })
-    }, [])
-
-    const logout = () => {}
-
-    if (loading) return <ActivityIndicator size="large" color="#00ff00" />
-
+  const renderItem = ({item}: {item: any}) => {
     return (
-        <View>
-            <Text>This is home</Text>
-            <Text onPress={() => navigation.navigate('User')}>my name is {user?.name}</Text>
-            <CustomButton label={'Logout'} colorCode={'red'} onPress={logout}/>
-        </View>
-    )
-}
+      <View>
+        <Text>{item?.name}</Text>
+      </View>
+    );
+  };
+
+  if (isLoading) return <ActivityIndicator size={30} color={'black'}/>
+
+  return (
+    <View>
+      <FlatList
+        data={products}
+        renderItem={renderItem}
+        keyExtractor={item => item.name}
+      />
+    </View>
+  );
+};
 
 export default Home;
