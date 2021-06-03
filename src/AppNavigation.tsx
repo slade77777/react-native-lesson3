@@ -10,7 +10,10 @@ import Home from './screen/Home';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Provider} from 'react-redux';
 import store from './redux/store';
-
+import {QueryClient, QueryClientProvider} from 'react-query';
+import {DetailProduct} from "./screen/DetailProduct";
+import {AddProduct} from "./screen/AddProduct";
+const queryClient = new QueryClient();
 const Stack = createStackNavigator();
 
 const AppNavigation: React.FC = () => {
@@ -30,20 +33,24 @@ const AppNavigation: React.FC = () => {
 
   return (
     <NavigationContainer>
-      <Provider store={store}>
-        <Stack.Navigator>
-          {!user?.user?.name ? (
-            <Stack.Screen name="Login" component={Login} />
-          ) : (
-            <>
-              <Stack.Screen name="Home" component={Home} />
-              <Stack.Screen name="Survey" component={Survey} />
-              <Stack.Screen name="Survey2" component={Survey2} />
-              <Stack.Screen name="Answers" component={Answers} />
-            </>
-          )}
-        </Stack.Navigator>
-      </Provider>
+      <QueryClientProvider client={queryClient}>
+        <Provider store={store}>
+          <Stack.Navigator>
+            {!user?.user?.name ? (
+              <Stack.Screen name="Login" component={Login} />
+            ) : (
+              <>
+                <Stack.Screen name="Home" component={Home} />
+                <Stack.Screen name="AddProduct" component={AddProduct} />
+                <Stack.Screen name="DetailProduct" component={DetailProduct} />
+                <Stack.Screen name="Survey" component={Survey} />
+                <Stack.Screen name="Survey2" component={Survey2} />
+                <Stack.Screen name="Answers" component={Answers} />
+              </>
+            )}
+          </Stack.Navigator>
+        </Provider>
+      </QueryClientProvider>
     </NavigationContainer>
   );
 };

@@ -8,40 +8,32 @@ import {
   Image,
   FlatList,
 } from 'react-native';
+import {useQueryProducts} from "../queryHook/useQueryProducts";
 import {useNavigation} from '@react-navigation/native';
-import CustomButton from '../CustomButton';
-import {baseUrl} from '../constant';
-import {useDispatch, useSelector} from 'react-redux';
-import {getProducts} from '../redux/action/productionAction';
-
-const axios = require('axios').default;
 
 const Home: React.FC = () => {
-  const productReducer = useSelector((state: any) => state?.productReducer);
-  const {products, isLoading} = productReducer;
-  console.log(isLoading);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getProducts());
-  }, []);
-
+  const productQuery = useQueryProducts();
+  const navigation = useNavigation();
   const renderItem = ({item}: {item: any}) => {
     return (
-      <View>
+      <TouchableOpacity onPress={() => navigation.navigate('DetailProduct', {id: item.id})}>
         <Text>{item?.name}</Text>
-      </View>
+      </TouchableOpacity>
     );
   };
 
-  if (isLoading) return <ActivityIndicator size={30} color={'black'}/>
+  if (productQuery.isLoading) {
+    return <ActivityIndicator size={30} color='black'/>
+  }
 
   return (
     <View>
       <FlatList
-        data={products}
+        data={productQuery?.data?.data || []}
         renderItem={renderItem}
         keyExtractor={item => item.name}
       />
+      <Text onPress={() => navigation.navigate('AddProduct')} style={{ marginTop: 30}}>Thêm</Text>
     </View>
   );
 };

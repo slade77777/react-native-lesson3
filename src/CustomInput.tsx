@@ -4,7 +4,7 @@ import {orangeColor} from '../App';
 
 type CustomInputProps = {
   label: string;
-  placeholder: string;
+  placeholder?: string;
   isEmail?: boolean;
   value?: string;
   onChange?: (val: string) => void;
