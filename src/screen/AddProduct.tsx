@@ -3,7 +3,6 @@ import {TextInput, View, Text, Alert} from 'react-native';
 import axios from 'axios';
 import {useMutation, useQueryClient} from 'react-query';
 import {baseUrl} from '../constant';
-import CustomInput from '../CustomInput';
 
 export const AddProduct = () => {
   const queryClient = useQueryClient();

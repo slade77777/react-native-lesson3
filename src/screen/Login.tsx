@@ -1,6 +1,5 @@
 import React, {useContext, useState} from 'react';
 import {View, Text, Alert} from 'react-native';
-import CustomInput from '../CustomInput';
 import CustomButton from '../CustomButton';
 import {orangeColor} from '../../App';
 import {UserContext} from '../context/UserContext';
@@ -40,33 +39,33 @@ const Login: React.FC = () => {
 
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
-      <Controller
-        control={control}
-        render={({field: {onChange, onBlur, value}}) => (
-          <CustomInput
-            label={'name'}
-            placeholder={'name'}
-            onChange={onChange}
-            value={value}
-          />
-        )}
-        rules={{required: true}}
-        name={'name'}
-      />
-      {errors.name && <Text>This is required.</Text>}
-      <Controller
-        control={control}
-        render={({field: {onChange, onBlur, value}}) => (
-          <CustomInput
-            label={'password'}
-            placeholder={'password'}
-            onChange={onChange}
-            value={value}
-          />
-        )}
-        rules={{minLength: 6}}
-        name={'password'}
-      />
+      {/*<Controller*/}
+      {/*  control={control}*/}
+      {/*  render={({field: {onChange, onBlur, value}}) => (*/}
+      {/*    <CustomInput*/}
+      {/*      label={'name'}*/}
+      {/*      placeholder={'name'}*/}
+      {/*      onChange={onChange}*/}
+      {/*      value={value}*/}
+      {/*    />*/}
+      {/*  )}*/}
+      {/*  rules={{required: true}}*/}
+      {/*  name={'name'}*/}
+      {/*/>*/}
+      {/*{errors.name && <Text>This is required.</Text>}*/}
+      {/*<Controller*/}
+      {/*  control={control}*/}
+      {/*  render={({field: {onChange, onBlur, value}}) => (*/}
+      {/*    <CustomInput*/}
+      {/*      label={'password'}*/}
+      {/*      placeholder={'password'}*/}
+      {/*      onChange={onChange}*/}
+      {/*      value={value}*/}
+      {/*    />*/}
+      {/*  )}*/}
+      {/*  rules={{minLength: 6}}*/}
+      {/*  name={'password'}*/}
+      {/*/>*/}
       {errors.password && <Text>{errors.password.message}</Text>}
       <CustomButton
         label={'submit'}
