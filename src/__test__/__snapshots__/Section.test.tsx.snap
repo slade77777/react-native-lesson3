@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test section 1`] = `
+<View
+  style={
+    Object {
+      "marginTop": 32,
+      "paddingHorizontal": 24,
+    }
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "color": "pink",
+          "fontSize": 24,
+          "fontWeight": "600",
+        },
+        Object {
+          "color": "blue",
+          "fontSize": 30,
+        },
+      ]
+    }
+  >
+    ahihi
+  </Text>
+  <Text
+    style={
+      Array [
+        Object {
+          "color": "pink",
+          "fontSize": 24,
+          "fontWeight": "600",
+        },
+        Object {
+          "color": "red",
+        },
+      ]
+    }
+  >
+    description here
+  </Text>
+  <Text
+    style={
+      Array [
+        Object {
+          "fontSize": 18,
+          "fontWeight": "400",
+          "marginTop": 8,
+        },
+        Object {
+          "color": "#444",
+        },
+      ]
+    }
+  />
+</View>
+`;

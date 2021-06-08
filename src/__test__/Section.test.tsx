@@ -3,9 +3,16 @@ import Section from "../Section";
 import React from "react";
 
 test('test section', () => {
-    const {getByText} = render(
+    const section = render(
         <Section description='description here' title='ahihi'/>
     )
 
-    expect(getByText('ahihi')).toBeTruthy();
+    expect(section).toMatchSnapshot();
+})
+
+test('renderText correct', () => {
+    const section = render(
+        <Section description='description here' title='ahihi'/>
+    )
+    expect(section.getByText('ahihi')).toBeTruthy();
 })

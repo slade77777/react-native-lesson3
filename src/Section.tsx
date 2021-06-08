@@ -14,6 +14,7 @@ const Section: React.FC<{
                 style={[
                     styles.sectionTitle,
                     {
+                        fontSize: 30,
                         color: 'blue',
                     },
                 ]}>
